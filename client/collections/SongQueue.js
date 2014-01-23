@@ -3,13 +3,15 @@ var SongQueue = Songs.extend({
 
   initialize: function() {
     this.on('add', function(songModel) {
+      console.log("Caught the add model event in collection");
+      console.log(this.length);
       if(this.length === 1) {
         this.playFirst(songModel);
       }
     }, this);
 
     this.on('ended', function(songModel) {
-      console.log("Caught the ended event in collection");
+      console.log("Caught the ended model event from collection");
       this.removeSong(songModel);
       if(this.at(0)) {
         this.playFirst(this.at(0));
@@ -17,10 +19,14 @@ var SongQueue = Songs.extend({
     }, this);
 
     this.on('dequeue', function(songModel) {
-      console.log("Caught the dequeue event in collection");
+      console.log("Caught the dequeue model event from collection");
       this.removeSong(songModel);
     }, this);
 
+    this.on('enqueue', function(songModel) {
+      console.log("Caught the enqueue model event from collection");
+      this.add(songModel);
+    }, this);
 
   },
 
