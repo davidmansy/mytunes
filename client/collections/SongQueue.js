@@ -21,6 +21,7 @@ var SongQueue = Songs.extend({
       this.removeSong(songModel);
     }, this);
 
+
   },
 
   playFirst: function(songModel) {
