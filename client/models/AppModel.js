@@ -16,14 +16,10 @@ var AppModel = Backbone.Model.extend({
       // Increase counter
       var count = song.get('counter');
       song.set('counter', ++count);
-      console.log(song.get('counter'));
       song.counter();
-
-    //Increase the count
-    // var count = this.at(0).get('counter');
-    // this.at(0).set('counter', ++count);
-    // console.log(this.at(0).get('title') + ' has ' + this.at(0).get('counter') + ' play(s)');
-
+      //As the counter increment is triggered by the queue playing the song and this must trigger the rendering of the 
+      //library view, i use the app model to make the two world to communicate
+      //the songModel will trigger a counter event that will be picked by the library entry view
     }, this);
 
     //New
