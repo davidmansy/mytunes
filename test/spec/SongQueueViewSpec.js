@@ -32,7 +32,7 @@ describe('SongQueueView', function() {
       title:'test song 3'
     });
     view.collection.pop();
-    expect(view.render.callCount).toEqual(2);
+    expect(view.render.callCount).toEqual(2); //SHould be 3???
   });
 
 });

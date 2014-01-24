@@ -2,48 +2,33 @@
 var SongQueue = Songs.extend({
 
   initialize: function() {
-    this.on('add', function(songModel) {
-      console.log("Caught the add model event in collection");
-      console.log(this.length);
-      if(this.length === 1) {
-        this.playFirst(songModel);
-      }
-    }, this);
+    this.on('add', this.playIfLonely, this);
+    this.on('ended', this.dequeue, this);
+    this.on('dequeue', this.dequeue, this);
+  },
 
-    this.on('ended', function(songModel) {
-      console.log("Caught the ended model event from collection");
-      this.removeSong(songModel);
-      if(this.at(0)) {
-        this.playFirst(this.at(0));
-      }
-    }, this);
+  playIfLonely: function(songModel) {
+    if(this.length === 1) {
+      this.playFirst(songModel);
+    }
+  },
 
-    this.on('dequeue', function(songModel) {
-      console.log("Caught the dequeue model event from collection");
-      this.removeSong(songModel);
-    }, this);
-
-    this.on('enqueue', function(songModel) {
-      console.log("Caught the enqueue model event from collection");
-      this.add(songModel);
-    }, this);
-
+  dequeue: function(songModel) {
+    this.remove(songModel);
+    if(this.length === 0) {
+      this.trigger('stop', this);
+    } else {
+      this.playFirst(this.at(0));
+    }
   },
 
   playFirst: function(songModel) {
     if(!songModel) {
+      console.log("Play has been called");
       this.at(0).play();
     } else {
       songModel.play();
     }
-  },
-
-  removeSong: function(songModel) {
-    this.forEach(function(song) {
-      if(song.cid === songModel.cid) {
-        this.remove(song);
-      }
-    }, this);
   }
 
 });

@@ -5,7 +5,6 @@ var SongModel = Backbone.Model.extend({
   play: function(){
     // Triggering an event here will also trigger the event on the collection
     this.trigger('play', this);
-    // console.log('Play event triggered on ' + this.attributes.title);
   },
 
   ended: function() {
@@ -18,6 +17,10 @@ var SongModel = Backbone.Model.extend({
 
   enqueue: function() {
     this.trigger('enqueue', this);
+    //enqueue event triggered -> goes to Songs collection
+    //AppModel listen to Songs collection and so will catch the event
+    //When catched, appmodel will add the song to SongQueue
+    //SongQueue will catch the add event and will call its playIfLonely method
   }
 
 
