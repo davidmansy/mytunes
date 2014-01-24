@@ -13,6 +13,17 @@ var AppModel = Backbone.Model.extend({
     getting called from the window (unless we override it, as we do here). */
     params.library.on('play', function(song){
       this.set('currentSong', song);
+      // Increase counter
+      var count = song.get('counter');
+      song.set('counter', ++count);
+      console.log(song.get('counter'));
+      song.counter();
+
+    //Increase the count
+    // var count = this.at(0).get('counter');
+    // this.at(0).set('counter', ++count);
+    // console.log(this.at(0).get('title') + ' has ' + this.at(0).get('counter') + ' play(s)');
+
     }, this);
 
     //New

@@ -1,6 +1,9 @@
 // SongModel.js - Defines a backbone model class for songs.
 var SongModel = Backbone.Model.extend({
 
+  initialize: function() {
+    this.set('counter', 0);
+  },
 
   play: function(){
     // Triggering an event here will also trigger the event on the collection
@@ -21,6 +24,10 @@ var SongModel = Backbone.Model.extend({
     //AppModel listen to Songs collection and so will catch the event
     //When catched, appmodel will add the song to SongQueue
     //SongQueue will catch the add event and will call its playIfLonely method
+  },
+
+  counter: function() {
+    this.trigger('counter', this);
   }
 
 
